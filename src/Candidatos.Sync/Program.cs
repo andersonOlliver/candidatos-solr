@@ -2,8 +2,10 @@
 using Autofac.Extras.Quartz;
 using Candidatos.Domain.Interfaces.Processador;
 using Candidatos.Domain.Interfaces.Providers;
+using Candidatos.Domain.Interfaces.Reporter;
 using Candidatos.Domain.Processador;
 using Candidatos.Domain.Providers;
+using Candidatos.Domain.Reporter;
 using Candidatos.Sync.IoC;
 using Candidatos.Sync.Job;
 using Candidatos.Sync.Service;
@@ -53,6 +55,7 @@ namespace Candidatos.Sync
 
             builder.RegisterType<ProcessadorDocumentoCandidato>().As<IProcessadorDocumentoCandidato>();
             builder.RegisterType<CandidatoDocumentoProvider>().As<ICandidatoDocumentoProvider>();
+            builder.RegisterType<CandidatoGravadorReporter>().As<ICandidatoGravadorReporter>();
 
             builder.RegisterModule(new QuartzAutofacFactoryModule { ConfigurationProvider = QuartzConfigurationProvider });
             builder.RegisterModule(new QuartzAutofacJobsModule(typeof(Program).Assembly));

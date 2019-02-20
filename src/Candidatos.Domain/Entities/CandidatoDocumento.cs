@@ -64,5 +64,10 @@ namespace Candidatos.Domain.Entities
         public string ST_DECLARAR_BENS { get; set; }
         public int NR_PROTOCOLO_CANDIDATURA { get; set; }
         public long NR_PROCESSO { get; set; }
+
+        public override string ToString()
+        {
+            return $"{SG_UE} - {SG_PARTIDO}: {NM_CANDIDATO}";
+        }
     }
 }
