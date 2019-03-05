@@ -2,6 +2,7 @@
 using Candidatos.Domain.Interfaces.Solr;
 using Newtonsoft.Json;
 using SolrNet;
+using SolrNet.Commands.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -49,6 +50,22 @@ namespace Candidatos.Infra.Data.Solr
         public async Task<IEnumerable<CandidatoDocumento>> SearchAsync(AbstractSolrQuery query)
         {
             return await _solr.QueryAsync(query);
+        }
+
+        public async Task<IEnumerable<CandidatoDocumento>> SearchAsync(string query)
+        {
+            return await _solr.QueryAsync(query);
+        }
+
+        public async Task<SolrQueryResults<CandidatoDocumento>> SearchAsync(string query, int start = 0, int quantidade = 10)
+        {
+            var solrOptions = new QueryOptions
+            {
+                StartOrCursor = new StartOrCursor.Start(start),
+                Rows = quantidade
+            };
+
+            return await _solr.QueryAsync(query, solrOptions);
         }
     }
 }

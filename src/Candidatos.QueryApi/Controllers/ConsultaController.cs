@@ -1,6 +1,8 @@
 ﻿using Candidatos.Domain.Entities;
 using Candidatos.Domain.Services;
+using Candidatos.QueryApi.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Candidatos.QueryApi.Controllers
@@ -31,7 +33,9 @@ namespace Candidatos.QueryApi.Controllers
         [HttpGet]
         public async Task<IActionResult> ConsultarAsync([FromQuery] Filtro filtro)
         {
-            var resultado = await _consultaCandidatoService.ConsultarAsync(filtro);
+            var resultado = await _consultaCandidatoService.ConsultaPaginadaAsync(filtro);
+
+            Response.AddPagination(resultado.CurrentPage, resultado.PageSize, resultado.TotalCount, resultado.TotalPages);
             return Ok(resultado);
         }
     }

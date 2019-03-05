@@ -21,9 +21,22 @@ namespace Candidatos.Domain.Services
 
         public async Task<IEnumerable<CandidatoDocumento>> ConsultarAsync(Filtro filtro)
         {
-            var query = _queryFactory.BuildQuery(filtro);
-            var x = query.ToString();
-            return await _solrRepository.SearchAsync(query);
+            var query = _queryFactory.BuildParsedQuery(filtro);
+            var start = (filtro.PageNumber - 1) * filtro.PageSize;
+            var rows = filtro.PageSize;
+            return await _solrRepository.SearchAsync(query, start, rows);
+        }
+
+        public async Task<PagedList<CandidatoDocumento>> ConsultaPaginadaAsync(Filtro filtro)
+        {
+            var query = _queryFactory.BuildParsedQuery(filtro);
+            var start = (filtro.PageNumber - 1) * filtro.PageSize;
+            var rows = filtro.PageSize;
+            var resultado = await _solrRepository.SearchAsync(query, start, rows);
+
+            var count = resultado.NumFound;
+            
+            return PagedList<CandidatoDocumento>.Create(resultado, filtro.PageNumber, filtro.PageSize, count);
         }
     }
 }

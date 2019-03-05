@@ -7,5 +7,6 @@ namespace Candidatos.Domain.Services
     public interface IConsultaCandidatoService
     {
         Task<IEnumerable<CandidatoDocumento>> ConsultarAsync(Filtro filtro);
+        Task<PagedList<CandidatoDocumento>> ConsultaPaginadaAsync(Filtro filtro);
     }
 }

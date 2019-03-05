@@ -22,5 +22,54 @@
             <param name="filtro"></param>
             <returns></returns>
         </member>
+        <member name="T:Candidatos.QueryApi.Extensions.PaginatedExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Candidatos.QueryApi.Extensions.PaginatedExtensions.AddPagination(Microsoft.AspNetCore.Http.HttpResponse,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="response"></param>
+            <param name="currentPage"></param>
+            <param name="itemsPerPage"></param>
+            <param name="totalItems"></param>
+            <param name="totalPages"></param>
+        </member>
+        <member name="T:Candidatos.QueryApi.Models.PaginationHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Candidatos.QueryApi.Models.PaginationHeader.CurrentPage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Candidatos.QueryApi.Models.PaginationHeader.ItemsPerPage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Candidatos.QueryApi.Models.PaginationHeader.TotalItems">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Candidatos.QueryApi.Models.PaginationHeader.TotalPages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Candidatos.QueryApi.Models.PaginationHeader.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="currentPage"></param>
+            <param name="itemsPerPage"></param>
+            <param name="totalItems"></param>
+            <param name="totalPages"></param>
+        </member>
     </members>
 </doc>
