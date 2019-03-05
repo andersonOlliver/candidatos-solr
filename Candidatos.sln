@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Candidatos.Sync", "src\Candidatos.Sync\Candidatos.Sync.csproj", "{CE6BD5D3-FE19-4159-95DB-540C4F5AFF8F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Candidatos.Domain", "src\Candidatos.Domain\Candidatos.Domain.csproj", "{83E391CF-239A-4163-ABB4-1101AA52F299}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Candidatos.IoC", "src\Candidatos.IoC\Candidatos.IoC.csproj", "{7A603BDE-5935-40C9-A2AC-820FE2722B10}"
@@ -29,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CE6BD5D3-FE19-4159-95DB-540C4F5AFF8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE6BD5D3-FE19-4159-95DB-540C4F5AFF8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE6BD5D3-FE19-4159-95DB-540C4F5AFF8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE6BD5D3-FE19-4159-95DB-540C4F5AFF8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{83E391CF-239A-4163-ABB4-1101AA52F299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{83E391CF-239A-4163-ABB4-1101AA52F299}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83E391CF-239A-4163-ABB4-1101AA52F299}.Release|Any CPU.ActiveCfg = Release|Any CPU
