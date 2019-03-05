@@ -3,6 +3,7 @@ using Candidatos.Domain.Entities;
 using Candidatos.Domain.Interfaces.Processador;
 using Candidatos.Domain.Interfaces.Providers;
 using Candidatos.Domain.Interfaces.Reporter;
+using Candidatos.Domain.Interfaces.Solr;
 using Newtonsoft.Json;
 using Serilog;
 using System;
@@ -14,19 +15,16 @@ using System.Threading.Tasks;
 namespace Candidatos.Domain.Processador
 {
 
-    public class ProcessadorDocumento<D> : IObservable<D>, IProcessadorDocumento where D : DocumentoBase
+    public class ProcessadorDocumento<D> : IProcessadorDocumento where D : DocumentoBase
     {
 
         private readonly IDocumentoProvider<D> _provider;
-        private readonly IGravadorReporter<D> _reporter;
-        private List<IObserver<D>> _observers;
+        private readonly ISolrRepository _solrRepository;
 
-        public ProcessadorDocumento(IDocumentoProvider<D> provider, IGravadorReporter<D> reporter)
+        public ProcessadorDocumento(IDocumentoProvider<D> provider, ISolrRepository solrRepository)
         {
             _provider = provider;
-            _reporter = reporter;
-            _observers = new List<IObserver<D>>();
-            _reporter.Subscribe(this);
+            _solrRepository = solrRepository;
         }
 
         public void Processar(string path)
@@ -44,16 +42,15 @@ namespace Candidatos.Domain.Processador
             Log.Information("=========================================================");
             Log.Information("Iniciando tarefa");
 
-            List<string> pathFiles = GetFiles(path);
+            List<string> pathFiles = GetFiles(path).Take(1).ToList();
 
             foreach (var pathFile in pathFiles)
             {
                 var content = await ReadContentFileAsync(pathFile);
-                await Transmitir(content);
+                await TransmitirAsync(content);
             }
 
-
-            this.FinalizarTransmissao();
+            
             Log.Information("Tarefa finalizada");
             Log.Information("=========================================================");
         }
@@ -71,54 +68,9 @@ namespace Candidatos.Domain.Processador
         }
 
         // TODO: Alterar para emitir vários
-        private Task Transmitir(IEnumerable<D> dados)
+        private async Task TransmitirAsync(IEnumerable<D> dados)
         {
-            //dados.Take(2).ToList().ForEach(c => Log.Information(JsonConvert.SerializeObject(c)));
-
-            foreach (var observer in _observers)
-            {
-                if (dados == null)
-                    observer.OnError(new ReaderUnknownException());
-                else
-                    observer.OnNext(dados.First());
-            }
-
-            return Task.CompletedTask;
-        }
-
-        public void FinalizarTransmissao()
-        {
-            foreach (var observer in _observers.ToArray())
-                if (_observers.Contains(observer))
-                    observer.OnCompleted();
-
-            _observers.Clear();
-        }
-
-        public IDisposable Subscribe(IObserver<D> observer)
-        {
-            if (!_observers.Contains(observer))
-                _observers.Add(observer);
-            return new Unsubscriber(_observers, observer);
-        }
-
-
-        private class Unsubscriber : IDisposable
-        {
-            private List<IObserver<D>> _observers;
-            private IObserver<D> _observer;
-
-            public Unsubscriber(List<IObserver<D>> observers, IObserver<D> observer)
-            {
-                this._observers = observers;
-                this._observer = observer;
-            }
-
-            public void Dispose()
-            {
-                if (_observer != null && _observers.Contains(_observer))
-                    _observers.Remove(_observer);
-            }
+            await _solrRepository.AddManyAsync(dados as IEnumerable<CandidatoDocumento>);
         }
     }
 }

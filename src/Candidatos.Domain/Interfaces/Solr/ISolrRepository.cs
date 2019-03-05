@@ -1,10 +1,12 @@
 ﻿using Candidatos.Domain.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Candidatos.Domain.Interfaces.Solr
 {
     public interface ISolrRepository
     {
-        Task Adicionar(DocumentoBase documento);
+        Task AddAsync(CandidatoDocumento documento);
+        Task AddManyAsync(IEnumerable<CandidatoDocumento> documentos);
     }
 }
