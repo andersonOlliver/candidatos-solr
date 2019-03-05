@@ -31,8 +31,6 @@ namespace Candidatos.Infra.Data.Solr
 
             try
             {
-                var first = documentos.Take(1).ToList();
-                Debug.WriteLine(JsonConvert.SerializeObject(first));
                 _solr.AddRange(documentos);
             }
             catch (Exception ex)
@@ -46,6 +44,11 @@ namespace Candidatos.Infra.Data.Solr
         public void Dispose()
         {
             GC.SuppressFinalize(this);
+        }
+
+        public async Task<IEnumerable<CandidatoDocumento>> SearchAsync(AbstractSolrQuery query)
+        {
+            return await _solr.QueryAsync(query);
         }
     }
 }

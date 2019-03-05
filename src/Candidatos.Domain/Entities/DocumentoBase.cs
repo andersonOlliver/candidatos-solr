@@ -13,7 +13,6 @@ namespace Candidatos.Domain.Entities
 
         public DocumentoBase()
         {
-            Id = Guid.NewGuid().ToString();
         }
     }
 }

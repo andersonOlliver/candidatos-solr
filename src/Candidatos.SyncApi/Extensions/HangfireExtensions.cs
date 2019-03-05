@@ -23,7 +23,6 @@ namespace Candidatos.SyncApi.Extensions
         {
             var service = DependencyResolver.ServiceProvider.GetService(typeof(ISincronizaCandidatoService)) as ISincronizaCandidatoService;
             RecurringJob.AddOrUpdate("Sincroniza Candidato Job", () => service.SincronizaAsync(), Cron.Hourly);
-            //RecurringJob.AddOrUpdate("Candidatos Job", () => Console.WriteLine("Minutely Job"), Cron.Minutely);
         }
     }
 }

@@ -2,12 +2,12 @@
 using Candidatos.Domain.Entities;
 using Candidatos.Domain.Interfaces.Processador;
 using Candidatos.Domain.Interfaces.Providers;
-using Candidatos.Domain.Interfaces.Reporter;
 using Candidatos.Domain.Interfaces.Solr;
 using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,11 +42,14 @@ namespace Candidatos.Domain.Processador
             Log.Information("=========================================================");
             Log.Information("Iniciando tarefa");
 
-            List<string> pathFiles = GetFiles(path).Take(1).ToList();
+            List<string> pathFiles = GetFiles(path);
 
             foreach (var pathFile in pathFiles)
             {
                 var content = await ReadContentFileAsync(pathFile);
+                Debug.WriteLine(new string(' ', 10));
+                Debug.WriteLine("Sincronizado: ", pathFile.Substring(path.LastIndexOf(@"\") + @"\data\".Length));
+                Debug.WriteLine(new string(' ', 10));
                 await TransmitirAsync(content);
             }
 
