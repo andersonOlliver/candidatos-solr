@@ -9,7 +9,7 @@
             Consulta de Candidatos
             </summary>
         </member>
-        <member name="M:Candidatos.QueryApi.Controllers.ConsultaController.#ctor(Candidatos.Domain.Services.IConsultaCandidatoService)">
+        <member name="M:Candidatos.QueryApi.Controllers.ConsultaController.#ctor(Candidatos.Domain.Services.IConsultaCandidatoService,AutoMapper.IMapper)">
             <summary>
             
             </summary>

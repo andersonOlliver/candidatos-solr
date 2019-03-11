@@ -3,6 +3,7 @@ using System;
 
 namespace Candidatos.Domain.Entities
 {
+
     public class CandidatoDocumento : DocumentoBase
     {
         public CandidatoDocumento() : base() { }
